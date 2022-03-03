@@ -1,6 +1,6 @@
 import gym, sys, argparse
 import numpy as np
-from .learn import make_env
+from assistive_gym.learn import make_env
 # import assistive_gym
 
 if sys.version_info < (3, 0):

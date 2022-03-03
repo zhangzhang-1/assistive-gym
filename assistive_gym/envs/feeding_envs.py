@@ -1,7 +1,8 @@
 from .feeding import FeedingEnv
 from .feeding_mesh import FeedingMeshEnv
-from .agents import pr2, baxter, sawyer, jaco, stretch, panda, human, human_mesh
+from .agents import pr2, tiago_dualhand, baxter, sawyer, jaco, stretch, panda, human, human_mesh
 from .agents.pr2 import PR2
+from .agents.tiago_dualhand import tiago_dualhand
 from .agents.baxter import Baxter
 from .agents.sawyer import Sawyer
 from .agents.jaco import Jaco
@@ -17,6 +18,11 @@ human_controllable_joint_indices = human.head_joints
 class FeedingPR2Env(FeedingEnv):
     def __init__(self):
         super(FeedingPR2Env, self).__init__(robot=PR2(robot_arm), human=Human(human_controllable_joint_indices, controllable=False))
+
+class FeedingTiagoDualhandEnv(FeedingEnv):
+    def __init__(self):
+        super(FeedingTiagoDualhandEnv, self).__init__(robot=tiago_dualhand(robot_arm), human=Human(human_controllable_joint_indices, controllable=False))
+
 
 class FeedingBaxterEnv(FeedingEnv):
     def __init__(self):
@@ -42,6 +48,11 @@ class FeedingPR2HumanEnv(FeedingEnv, MultiAgentEnv):
     def __init__(self):
         super(FeedingPR2HumanEnv, self).__init__(robot=PR2(robot_arm), human=Human(human_controllable_joint_indices, controllable=True))
 register_env('assistive_gym:FeedingPR2Human-v1', lambda config: FeedingPR2HumanEnv())
+
+class FeedingTiagoDualhandHumanEnv(FeedingEnv, MultiAgentEnv):
+    def __init__(self):
+        super(FeedingTiagoDualhandHumanEnv, self).__init__(robot=tiago_dualhand(robot_arm), human=Human(human_controllable_joint_indices, controllable=True))
+register_env('assistive_gym:FeedingTiagoDualhandHuman-v1', lambda config: FeedingTiagoDualhandHumanEnv())
 
 class FeedingBaxterHumanEnv(FeedingEnv, MultiAgentEnv):
     def __init__(self):
@@ -71,6 +82,10 @@ register_env('assistive_gym:FeedingPandaHuman-v1', lambda config: FeedingPandaHu
 class FeedingPR2MeshEnv(FeedingMeshEnv):
     def __init__(self):
         super(FeedingPR2MeshEnv, self).__init__(robot=PR2(robot_arm), human=HumanMesh())
+
+class FeedingTiagoDualhandMeshEnv(FeedingMeshEnv):
+    def __init__(self):
+        super(FeedingTiagoDualhandMeshEnv, self).__init__(robot=tiago_dualhand(robot_arm), human=HumanMesh())
 
 class FeedingBaxterMeshEnv(FeedingMeshEnv):
     def __init__(self):

@@ -1,7 +1,8 @@
 from .scratch_itch import ScratchItchEnv
 from .scratch_itch_mesh import ScratchItchMeshEnv
-from .agents import pr2, baxter, sawyer, jaco, stretch, panda, human, human_mesh
+from .agents import pr2, tiago_dualhand, baxter, sawyer, jaco, stretch, panda, human, human_mesh
 from .agents.pr2 import PR2
+from .agents.tiago_dualhand import tiago_dualhand
 from .agents.baxter import Baxter
 from .agents.sawyer import Sawyer
 from .agents.jaco import Jaco
@@ -17,6 +18,10 @@ human_controllable_joint_indices = human.right_arm_joints
 class ScratchItchPR2Env(ScratchItchEnv):
     def __init__(self):
         super(ScratchItchPR2Env, self).__init__(robot=PR2(robot_arm), human=Human(human_controllable_joint_indices, controllable=False))
+
+class ScratchItchTiagoDualhandEnv(ScratchItchEnv):
+    def __init__(self):
+        super(ScratchItchTiagoDualhandEnv, self).__init__(robot=tiago_dualhand(robot_arm), human=Human(human_controllable_joint_indices, controllable=False))
 
 class ScratchItchBaxterEnv(ScratchItchEnv):
     def __init__(self):
@@ -42,6 +47,11 @@ class ScratchItchPR2HumanEnv(ScratchItchEnv, MultiAgentEnv):
     def __init__(self):
         super(ScratchItchPR2HumanEnv, self).__init__(robot=PR2(robot_arm), human=Human(human_controllable_joint_indices, controllable=True))
 register_env('assistive_gym:ScratchItchPR2Human-v1', lambda config: ScratchItchPR2HumanEnv())
+
+class ScratchItchTiagoDualhandHumanEnv(ScratchItchEnv, MultiAgentEnv):
+    def __init__(self):
+        super(ScratchItchTiagoDualhandHumanEnv, self).__init__(robot=tiago_dualhand(robot_arm), human=Human(human_controllable_joint_indices, controllable=True))
+register_env('assistive_gym:ScratchItchTiagoDualhandHuman-v1', lambda config: ScratchItchTiagoDualhandHumanEnv())
 
 class ScratchItchBaxterHumanEnv(ScratchItchEnv, MultiAgentEnv):
     def __init__(self):
@@ -71,6 +81,10 @@ register_env('assistive_gym:ScratchItchPandaHuman-v1', lambda config: ScratchItc
 class ScratchItchPR2MeshEnv(ScratchItchMeshEnv):
     def __init__(self):
         super(ScratchItchPR2MeshEnv, self).__init__(robot=PR2(robot_arm), human=HumanMesh())
+
+class ScratchItchTiagoDualhandMeshEnv(ScratchItchMeshEnv):
+    def __init__(self):
+        super(ScratchItchTiagoDualhandMeshEnv, self).__init__(robot=tiago_dualhand(robot_arm), human=HumanMesh())
 
 class ScratchItchBaxterMeshEnv(ScratchItchMeshEnv):
     def __init__(self):

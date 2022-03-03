@@ -1,6 +1,7 @@
 from .dressing import DressingEnv
-from .agents import pr2, baxter, sawyer, jaco, stretch, panda, human
+from .agents import pr2, tiago_dualhand, baxter, sawyer, jaco, stretch, panda, human
 from .agents.pr2 import PR2
+from .agents.tiago_dualhand import tiago_dualhand
 from .agents.baxter import Baxter
 from .agents.sawyer import Sawyer
 from .agents.jaco import Jaco
@@ -15,6 +16,10 @@ human_controllable_joint_indices = human.left_arm_joints
 class DressingPR2Env(DressingEnv):
     def __init__(self):
         super(DressingPR2Env, self).__init__(robot=PR2(robot_arm), human=Human(human_controllable_joint_indices, controllable=False))
+
+class DressingTiagoDualhandEnv(DressingEnv):
+    def __init__(self):
+        super(DressingTiagoDualhandEnv, self).__init__(robot=tiago_dualhand(robot_arm), human=Human(human_controllable_joint_indices, controllable=False))
 
 class DressingBaxterEnv(DressingEnv):
     def __init__(self):
@@ -40,6 +45,11 @@ class DressingPR2HumanEnv(DressingEnv, MultiAgentEnv):
     def __init__(self):
         super(DressingPR2HumanEnv, self).__init__(robot=PR2(robot_arm), human=Human(human_controllable_joint_indices, controllable=True))
 register_env('assistive_gym:DressingPR2Human-v1', lambda config: DressingPR2HumanEnv())
+
+class DressingTiagoDualhandHumanEnv(DressingEnv, MultiAgentEnv):
+    def __init__(self):
+        super(DressingTiagoDualhandHumanEnv, self).__init__(robot=tiago_dualhand(robot_arm), human=Human(human_controllable_joint_indices, controllable=True))
+register_env('assistive_gym:DressingTiagoDualhandHuman-v1', lambda config: DressingTiagoDualhandHumanEnv())
 
 class DressingBaxterHumanEnv(DressingEnv, MultiAgentEnv):
     def __init__(self):

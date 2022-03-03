@@ -261,6 +261,7 @@ class Agent:
             ik_rest_poses = np.array(self.get_motor_joint_states()[1])
         else:
             ik_rest_poses = self.np_random.uniform(ik_lower_limits, ik_upper_limits)
+            ik_rest_poses = (ik_upper_limits + ik_lower_limits) / 2
 
         # print('JPO:', target_joint, target_pos, target_orient)
         # print('Lower:', self.ik_lower_limits)
@@ -268,7 +269,12 @@ class Agent:
         # print('Range:', ik_joint_ranges)
         # print('Rest:', ik_rest_poses)
         if target_orient is not None:
-            ik_joint_poses = np.array(p.calculateInverseKinematics(self.body, target_joint, targetPosition=target_pos, targetOrientation=target_orient, lowerLimits=ik_lower_limits.tolist(), upperLimits=ik_upper_limits.tolist(), jointRanges=ik_joint_ranges.tolist(), restPoses=ik_rest_poses.tolist(), maxNumIterations=max_iterations, physicsClientId=self.id))
+            ik_joint_poses = np.array(p.calculateInverseKinematics(self.body, target_joint, targetPosition=target_pos, targetOrientation=target_orient, lowerLimits=ik_lower_limits.tolist(), upperLimits=ik_upper_limits.tolist(), jointRanges=ik_joint_ranges.tolist(), restPoses=ik_rest_poses.tolist(), maxNumIterations=max_iterations, solver=p.IK_SDLS, physicsClientId=self.id))
+            # ik_joint_poses = np.array(p.calculateInverseKinematics(self.body, target_joint, targetPosition=target_pos,
+            #                                                        targetOrientation=target_orient,
+            #                                                        maxNumIterations=max_iterations, solver=p.IK_SDLS,
+            #                                                        physicsClientId=self.id))
+
         else:
             ik_joint_poses = np.array(p.calculateInverseKinematics(self.body, target_joint, targetPosition=target_pos, lowerLimits=ik_lower_limits.tolist(), upperLimits=ik_upper_limits.tolist(), jointRanges=ik_joint_ranges.tolist(), restPoses=ik_rest_poses.tolist(), maxNumIterations=max_iterations, physicsClientId=self.id))
         return ik_joint_poses[ik_indices]

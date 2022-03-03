@@ -18,30 +18,30 @@ class Jaco(Robot):
         left_gripper_collision_indices = right_gripper_collision_indices # Used to disable collision between gripper and tools
         gripper_pos = {'scratch_itch': [1]*3, # Gripper open position for holding tools
                        'feeding': [1.33]*3,
-                       'drinking': [0.63]*3,
+                       'drinking': [0.63]*3,'reaching': [0.63]*3,
                        'bed_bathing': [1.1]*3,
                        'dressing': [1.33]*3,
                        'arm_manipulation': [1.05]*3}
         tool_pos_offset = {'scratch_itch': [0, 0, 0.02], # Position offset between tool and robot tool joint
                            'feeding': [0.1, -0.0225, 0.03],
-                           'drinking': [0.05, -0.005, 0],
+                           'drinking': [0.05, -0.005, 0],'reaching': [0, 0, 0],
                            'bed_bathing': [-0.01, 0, 0.03],
                            'arm_manipulation': [0.075, 0, 0.14]}
         tool_orient_offset = {'scratch_itch': [0, -np.pi/2.0, 0], # RPY orientation offset between tool and robot tool joint
                               'feeding': [-0.1, -np.pi/2.0, 0],
-                              'drinking': [0, -np.pi/2.0, np.pi/2.0],
+                              'drinking': [0, -np.pi/2.0, np.pi/2.0],'reaching': [0, 0, 0],
                               'bed_bathing': [0, -np.pi/2.0, 0],
                               'arm_manipulation': [np.pi/2.0, -np.pi/2.0, 0]}
         pos = [-0.35, -0.3, 0.3]
         toc_base_pos_offset = {'scratch_itch': pos, # Robot base offset before TOC base pose optimization
                                'feeding': pos,
-                               'drinking': pos,
+                               'drinking': pos,'reaching': [0, 0, 0],
                                'bed_bathing': [-0.05, 1.05, 0.6],
                                'dressing': [0.35, -0.3, 0.3],
                                'arm_manipulation': [-0.25, 1.15, 0.6]}
         toc_ee_orient_rpy = {'scratch_itch': [0, np.pi/2.0, 0], # Initial end effector orientation
                              'feeding': [np.pi/2.0, 0, np.pi/2.0],
-                             'drinking': [0, np.pi/2.0, 0],
+                             'drinking': [0, np.pi/2.0, 0],'reaching': [0, 0, 0],
                              'bed_bathing': [0, np.pi/2.0, 0],
                              'dressing': [[0, -np.pi/2.0, 0]],
                              'arm_manipulation': [0, np.pi/2.0, 0]}

@@ -1,6 +1,7 @@
 from .bed_bathing import BedBathingEnv
-from .agents import pr2, baxter, sawyer, jaco, stretch, panda, human
+from .agents import pr2, tiago_dualhand, baxter, sawyer, jaco, stretch, panda, human
 from .agents.pr2 import PR2
+from .agents.tiago_dualhand import tiago_dualhand
 from .agents.baxter import Baxter
 from .agents.sawyer import Sawyer
 from .agents.jaco import Jaco
@@ -15,6 +16,10 @@ human_controllable_joint_indices = human.right_arm_joints
 class BedBathingPR2Env(BedBathingEnv):
     def __init__(self):
         super(BedBathingPR2Env, self).__init__(robot=PR2(robot_arm), human=Human(human_controllable_joint_indices, controllable=False))
+
+class BedBathingTiagoDualhandEnv(BedBathingEnv):
+    def __init__(self):
+        super(BedBathingTiagoDualhandEnv, self).__init__(robot=tiago_dualhand(robot_arm), human=Human(human_controllable_joint_indices, controllable=False))
 
 class BedBathingBaxterEnv(BedBathingEnv):
     def __init__(self):
@@ -40,6 +45,11 @@ class BedBathingPR2HumanEnv(BedBathingEnv, MultiAgentEnv):
     def __init__(self):
         super(BedBathingPR2HumanEnv, self).__init__(robot=PR2(robot_arm), human=Human(human_controllable_joint_indices, controllable=True))
 register_env('assistive_gym:BedBathingPR2Human-v1', lambda config: BedBathingPR2HumanEnv())
+
+class BedBathingTiagoDualhandHumanEnv(BedBathingEnv, MultiAgentEnv):
+    def __init__(self):
+        super(BedBathingTiagoDualhandHumanEnv, self).__init__(robot=tiago_dualhand(robot_arm), human=Human(human_controllable_joint_indices, controllable=True))
+register_env('assistive_gym:BedBathingTiagoDualhandHuman-v1', lambda config: BedBathingTiagoDualhandHumanEnv())
 
 class BedBathingBaxterHumanEnv(BedBathingEnv, MultiAgentEnv):
     def __init__(self):
